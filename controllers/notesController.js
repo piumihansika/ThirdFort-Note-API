@@ -26,6 +26,7 @@ router.get('/', function (req, res) {
     });
 });
 
+
 // Retrieve a Note with Id 
 router.get('/:id', function (req, res) {
     let note_id = req.params.id;
@@ -55,7 +56,7 @@ router.put('/update', function (req, res) {
     });
 
 
-    //  Delete a Note
+//  Delete a Note
 router.delete('/delete/:id', function (req, res) {
     let note_id = req.params.id;
     let query ="DELETE FROM note WHERE NoteId = ?";
@@ -68,36 +69,38 @@ router.delete('/delete/:id', function (req, res) {
     });
     });
 
-    //Archiving Notes
-    router.put('/archive', function (req, res) {
-        let note_id = req.body.NoteId;
-        let note =  req.body;
-        let query = "UPDATE note SET IsArchived=? WHERE NoteId= ? ";
 
-        if (!note_id) {
-          return res.status(400).send({ error: note, message: 'Please Provide Note Id' });
-        }
-        dbConn.query(query,[true,note_id], function (error, results, fields) {
-          if (error) throw error;
-          return res.send({ error: false, data: results, message: 'Note has been Archived Successfully.' });
-         });
-        });
+//Archiving Notes
+router.put('/archive', function (req, res) {
+    let note_id = req.body.NoteId;
+    let note =  req.body;
+    let query = "UPDATE note SET IsArchived=? WHERE NoteId= ? ";
+
+    if (!note_id) {
+        return res.status(400).send({ error: note, message: 'Please Provide Note Id' });
+    }
+    dbConn.query(query,[true,note_id], function (error, results, fields) {
+        if (error) throw error;
+        return res.send({ error: false, data: results, message: 'Note has been Archived Successfully.' });
+    });
+    });
 
 
-        //UnArchiving Notes
-        router.put('/unArchive', function (req, res) {
-        let note_id = req.body.NoteId;
-        let note =  req.body;
-        let query = "UPDATE note SET IsArchived=? WHERE NoteId= ? ";
+//UnArchiving Notes
+router.put('/unArchive', function (req, res) {
+    let note_id = req.body.NoteId;
+    let note =  req.body;
+    let query = "UPDATE note SET IsArchived=? WHERE NoteId= ? ";
 
-        if (!note_id) {
-          return res.status(400).send({ error: note, message: 'Please Provide Note Id' });
-        }
-        dbConn.query(query,[false,note_id], function (error, results, fields) {
-          if (error) throw error;
-          return res.send({ error: false, data: results, message: 'Note has been UnArchived Successfully.' });
-         });
-        });
+    if (!note_id) {
+        return res.status(400).send({ error: note, message: 'Please Provide Note Id' });
+    }
+    dbConn.query(query,[false,note_id], function (error, results, fields) {
+        if (error) throw error;
+        return res.send({ error: false, data: results, message: 'Note has been UnArchived Successfully.' });
+    });
+    });
+
 
 // Retrieve all Archived Notes 
 router.get('/archived', function (req, res) {
@@ -107,6 +110,7 @@ router.get('/archived', function (req, res) {
         return res.send({ error: false, data: results, message: 'Notes List.' });
     });
 });
+
 
 // Retrieve all UnArchived notes 
 router.get('/unArchived', function (req, res) {

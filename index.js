@@ -9,8 +9,8 @@ var notesController = require('./controllers/notesController');
  }));
 
  // set port
- app.listen(3001, function () {
-     console.log('Node app is running on port 3001');
+ app.listen(3000, function () {
+     console.log('Node app is running on port 3000');
  });
 
  app.use('/notes',notesController);
