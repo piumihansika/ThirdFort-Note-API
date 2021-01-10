@@ -15,12 +15,58 @@ To run tests
 npm test
 ```
 
-###### Database Connection Details
-Required database connection for fetching or update data into databaseIs as follows.
+Install express js framework and MySQL driver with NPM. Go to terminal and use the below commands :
 
-`host: 'localhost'`
-`user: 'root'`
+ ```shell
+ npm install express --save
+ npm install mysql --save
+ npm install body-parser --save
+```
+
+##### Database
+Create database and table for perform crud operation of node js restful API.
+
+```sql
+CREATE TABLE Note (
+    NoteId int NOT NULL AUTO_INCREMENT,
+    NoteHeading varchar(255) NOT NULL,
+    NoteContent varchar(255),
+    IsArchived boolean,
+    PRIMARY KEY (Personid)
+)
+```
+
+
+###### Database Connection Details
+Required database connection for fetching or update data into database is as follows.
+
+When establishing a connection, you can set the following options:
+
+`host`: The hostname of the database you are connecting to. (Default: localhost)
+`user`: The MySQL user to authenticate as.
+`password`: The password of that MySQL user.
+`database`: Name of the database to use for this connection (Optional).
+
+There is a db connection wrapper, this will allow you to create connection on db which stored on a single file and can be reuse by other modules.To create database connection in dbConnection.js include following code.
+
+```javascript
+var mysql=require('mysql')
+
+var dbConn = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'thirdfort_noteapi'
+});
+dbConn.connect();
+
+module.exports = dbConn;
+```
+
  
+## API
+                            localhost:3000/notes/
+
 ### API Methods
 
 - **/notes/addNew** - Accepts a POST request and Create a new Note in the database.
@@ -46,5 +92,6 @@ Required database connection for fetching or update data into databaseIs as foll
 
 ### If I were to spend more time on this task:
 - Implement JWT-Based, Stateless Authentication.
+- Implement input validation.
 - Сreate a security checklist to minimize the possibility of SQL injection.
 - Allow filtering, sorting, and pagination.
