@@ -32,7 +32,7 @@ CREATE TABLE Note (
     NoteHeading varchar(255) NOT NULL,
     NoteContent varchar(255),
     IsArchived boolean,
-    PRIMARY KEY (Personid)
+    PRIMARY KEY (NoteId)
 )
 ```
 
